@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { Analytics } from '@vercel/analytics/react';
-
 
 // A simple analytics component that logs to the console on mount.
 // This simulates sending a page view event to an analytics service.
@@ -525,22 +523,20 @@ const App = () => {
             <div className="w-full text-left mb-8">
               <h3 className="text-2xl font-bold mb-4 text-gray-800">Tips for Improvement</h3>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
-                {diagnosis.tips.map((tip, index) => (
+                {(diagnosis?.tips ?? []).map((tip, index) => (
                   <li key={index}>{tip}</li>
                 ))}
               </ul>
             </div>
 
-            {diagnosis.products && diagnosis.products.length > 0 && (
-              <div className="w-full mb-8">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">{t.productSectionTitle}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {diagnosis.products.map((product, index) => (
-                    <ProductCard key={index} product={product} t={t} />
-                  ))}
-                </div>
+            <div className="w-full mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">{t.productSectionTitle}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {(diagnosis?.products ?? []).map((product, index) => (
+                  <ProductCard key={index} product={product} t={t} />
+                ))}
               </div>
-            )}
+            </div>
 
             <button
               className="mt-4 px-6 py-3 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
