@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
+// A simple analytics component that logs to the console on mount.
+// This simulates sending a page view event to an analytics service.
+const Analytics = () => {
+  useEffect(() => {
+    console.log("Analytics: App loaded. A 'page_view' event has been sent.");
+  }, []);
+  return null; // This component does not render any visible content
+};
+
 // Translations for all languages
 const translations = {
   en: {
@@ -65,12 +74,6 @@ const translations = {
         { name: "White Noise Machine", description: "Masks disruptive noises to help you fall asleep and stay asleep." },
         { name: "Aromatherapy Diffuser", description: "Uses calming essential oils like lavender to create a soothing atmosphere." },
       ],
-      struggling: [
-        { name: "Ergonomic Memory Foam Pillow", description: "Supports head and neck alignment to reduce discomfort and improve sleep quality." },
-        { name: "Firmness-Adjustable Mattress", description: "Customizable support to find your perfect comfort level and reduce tossing and turning." },
-        { name: "Sleep Mask with Eye Contours", description: "Blocks light without putting pressure on your eyes for total darkness." },
-        { name: "Chamomile Sleep Tea", description: "A natural, non-caffeinated tea to calm the mind before bed." },
-      ],
     },
     disclaimer: "This quiz is a guided self-evaluation to help you reflect on your sleep habits and identify areas for improvement. It is informational only and not a medical diagnosis or treatment tool.",
     buttonText: {
@@ -125,12 +128,6 @@ const translations = {
         "限制咖啡因摄入，尤其是在下午和晚上。",
         "建立一个稳定的睡眠时间表，即使在周末也是如此。",
       ],
-      struggling: [
-        "创建一个放松的睡前仪式，向你的身体发出信号，表明该睡觉了。",
-        "评估你的睡眠环境，确保其黑暗、安静且温度适宜。",
-        "睡前避免摄入咖啡因和大量食物。",
-        "尝试在白天进行轻度运动，以帮助改善夜间睡眠质量。",
-      ],
     },
     productSectionTitle: "推荐睡眠解决方案",
     productBadges: "经睡眠专家测试与评价",
@@ -144,12 +141,6 @@ const translations = {
         { name: "遮光窗帘", description: "阻挡所有外部光线，营造一个漆黑、无干扰的睡眠环境。" },
         { name: "白噪音机", description: "掩盖扰人的噪音，帮助你入睡并保持睡眠。" },
         { name: "香薰加湿器", description: "使用薰衣草等镇静精油，营造舒缓的氛围。" },
-      ],
-      struggling: [
-        { name: "人体工学记忆棉枕头", description: "支撑头部和颈部，减轻不适，改善睡眠质量。" },
-        { name: "可调节硬度床垫", description: "可定制的支撑，找到完美的舒适度，减少翻身。" },
-        { name: "带眼部轮廓的睡眠眼罩", description: "不给眼睛施加压力，同时阻挡光线，营造完全的黑暗。" },
-        { name: "洋甘菊助眠茶", description: "一种天然、不含咖啡因的茶，可帮助睡前放松身心。" },
       ],
     },
     disclaimer: "本测验是一项指导性自我评估，旨在帮助您反思自己的睡眠习惯并确定需要改进的领域。它仅供参考，并非医疗诊断或治疗工具。",
@@ -205,12 +196,6 @@ const translations = {
         "Hadkan pengambilan kafein, terutamanya pada waktu petang dan malam.",
         "Tetapkan jadual tidur yang konsisten, walaupun pada hujung minggu.",
       ],
-      struggling: [
-        "Cipta ritual tidur yang menenangkan untuk memberi isyarat kepada badan anda bahawa sudah tiba masanya untuk tidur.",
-        "Nilai semula persekitaran tidur anda untuk memastikan ia gelap, senyap, dan pada suhu yang selesa.",
-        "Elakkan kafein dan makanan berat dekat dengan waktu tidur.",
-        "Cuba bersenam ringan pada siang hari untuk membantu meningkatkan kualiti tidur pada waktu malam.",
-      ],
     },
     productSectionTitle: "Penyelesaian Tidur yang Disyorkan",
     productBadges: "Diuji & Disemak oleh Pakar Tidur",
@@ -246,7 +231,7 @@ const questions = [
       { value: 0 },
       { value: 1 },
       { value: 2 },
-      { value: 1 },
+      { value: 1 }
     ],
   },
   {
@@ -254,7 +239,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
   {
@@ -262,7 +247,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
   {
@@ -270,7 +255,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
   {
@@ -278,7 +263,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
   {
@@ -286,7 +271,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
   {
@@ -294,7 +279,7 @@ const questions = [
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 },
+      { value: 2 }
     ],
   },
 ];
@@ -418,6 +403,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-4 font-sans flex items-center justify-center">
+      <Analytics />
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl text-center">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center">
