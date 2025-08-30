@@ -210,12 +210,6 @@ const translations = {
         "Hadkan pengambilan kafein, terutamanya pada waktu petang dan malam.",
         "Tetapkan jadual tidur yang konsisten, walaupun pada hujung minggu.",
       ],
-      struggling: [
-        "Cipta ritual tidur yang menenangkan untuk memberi isyarat kepada badan anda bahawa sudah tiba masanya untuk tidur.",
-        "Nilai semula persekitaran tidur anda untuk memastikan ia gelap, senyap, dan pada suhu yang selesa.",
-        "Elakkan kafein dan makanan berat dekat dengan waktu tidur.",
-        "Try light exercise during the day to help improve sleep quality at night.",
-      ],
     },
     productSectionTitle: "Penyelesaian Tidur yang Disyorkan",
     productBadges: "Diuji & Disemak oleh Pakar Tidur",
@@ -315,10 +309,10 @@ const ProductCard = ({ product, t }) => (
     </div>
     <h4 className="text-md font-semibold text-gray-800">{product.name}</h4>
     <p className="text-sm text-gray-600 my-2">{product.description}</p>
-    <span className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded-full">{t.productBadges}</span>
-    <a href="#" className="mt-4 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors duration-200">
+    {/* <span className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded-full">{t.productBadges}</span> */}
+    {/* <a href="#" className="mt-4 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors duration-200">
       {t.buttonText.learnMore}
-    </a>
+    </a> */}
   </div>
 );
 
