@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { Analytics } from "@vercel/analytics/react"
 
 // A simple analytics component that logs to the console on mount.
 // This simulates sending a page view event to an analytics service.
