@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { Analytics } from '@vercel/analytics/react';
+
 
 // A simple analytics component that logs to the console on mount.
 // This simulates sending a page view event to an analytics service.
@@ -74,6 +76,10 @@ const translations = {
         { name: "White Noise Machine", description: "Masks disruptive noises to help you fall asleep and stay asleep." },
         { name: "Aromatherapy Diffuser", description: "Uses calming essential oils like lavender to create a soothing atmosphere." },
       ],
+      struggling: [
+        { name: "Herbal Sleep Tea", description: "A calming blend of herbs like chamomile and valerian root to help you relax before bed." },
+        { name: "Sleep Mask", description: "Completely blocks light to improve sleep quality, especially when traveling or sleeping in a lit room." },
+      ],
     },
     disclaimer: "This quiz is a guided self-evaluation to help you reflect on your sleep habits and identify areas for improvement. It is informational only and not a medical diagnosis or treatment tool.",
     buttonText: {
@@ -128,6 +134,12 @@ const translations = {
         "限制咖啡因摄入，尤其是在下午和晚上。",
         "建立一个稳定的睡眠时间表，即使在周末也是如此。",
       ],
+      struggling: [
+        "创建放松的睡前仪式来告诉你的身体是时候睡觉了。",
+        "评估你的睡眠环境，确保它黑暗、安静且温度适宜。",
+        "避免在睡前摄入咖啡因和大量进食。",
+        "尝试在白天进行轻度运动以帮助改善夜间睡眠质量。",
+      ],
     },
     productSectionTitle: "推荐睡眠解决方案",
     productBadges: "经睡眠专家测试与评价",
@@ -141,6 +153,10 @@ const translations = {
         { name: "遮光窗帘", description: "阻挡所有外部光线，营造一个漆黑、无干扰的睡眠环境。" },
         { name: "白噪音机", description: "掩盖扰人的噪音，帮助你入睡并保持睡眠。" },
         { name: "香薰加湿器", description: "使用薰衣草等镇静精油，营造舒缓的氛围。" },
+      ],
+      struggling: [
+        { name: "草本助眠茶", description: "洋甘菊和缬草根等草药的舒缓混合物，可帮助您在睡前放松。" },
+        { name: "睡眠眼罩", description: "完全遮挡光线以提高睡眠质量，特别是在旅行或在明亮的房间睡觉时。" },
       ],
     },
     disclaimer: "本测验是一项指导性自我评估，旨在帮助您反思自己的睡眠习惯并确定需要改进的领域。它仅供参考，并非医疗诊断或治疗工具。",
@@ -196,6 +212,12 @@ const translations = {
         "Hadkan pengambilan kafein, terutamanya pada waktu petang dan malam.",
         "Tetapkan jadual tidur yang konsisten, walaupun pada hujung minggu.",
       ],
+      struggling: [
+        "Cipta ritual tidur yang menenangkan untuk memberi isyarat kepada badan anda bahawa sudah tiba masanya untuk tidur.",
+        "Nilai semula persekitaran tidur anda untuk memastikan ia gelap, senyap, dan pada suhu yang selesa.",
+        "Elakkan kafein dan makanan berat dekat dengan waktu tidur.",
+        "Try light exercise during the day to help improve sleep quality at night.",
+      ],
     },
     productSectionTitle: "Penyelesaian Tidur yang Disyorkan",
     productBadges: "Diuji & Disemak oleh Pakar Tidur",
@@ -209,6 +231,10 @@ const translations = {
         { name: "Langsir 'Blackout'", description: "Menyekat semua cahaya luaran untuk persekitaran tidur yang gelap gelita dan bebas gangguan." },
         { name: "Mesin 'White Noise'", description: "Menutupi bunyi bising yang mengganggu untuk membantu anda tidur dan kekal tidur." },
         { name: "Penyebar Aroma Terapi", description: "Menggunakan minyak pati yang menenangkan seperti lavender untuk mencipta suasana yang tenteram." },
+      ],
+      struggling: [
+        { name: "Teh Herba Tidur", description: "Campuran herba yang menenangkan seperti chamomile dan valerian root untuk membantu anda berehat sebelum tidur." },
+        { name: "Topeng Tidur", description: "Menyekat cahaya sepenuhnya untuk meningkatkan kualiti tidur, terutamanya ketika melancong atau tidur di bilik yang bercahaya." },
       ],
     },
     disclaimer: "Kuiz ini adalah penilaian kendiri berpandu untuk membantu anda merenung tabiat tidur anda dan mengenal pasti bidang untuk penambahbaikan. Ia hanya untuk maklumat dan bukan diagnosis perubatan atau alat rawatan.",
@@ -505,14 +531,16 @@ const App = () => {
               </ul>
             </div>
 
-            <div className="w-full mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">{t.productSectionTitle}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {diagnosis.products.map((product, index) => (
-                  <ProductCard key={index} product={product} t={t} />
-                ))}
+            {diagnosis.products && diagnosis.products.length > 0 && (
+              <div className="w-full mb-8">
+                <h3 className="text-2xl font-bold mb-4 text-gray-800">{t.productSectionTitle}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {diagnosis.products.map((product, index) => (
+                    <ProductCard key={index} product={product} t={t} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <button
               className="mt-4 px-6 py-3 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
