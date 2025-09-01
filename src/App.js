@@ -13,293 +13,470 @@ const Analytics = () => {
 // Translations for all languages
 const translations = {
   en: {
-    quizTitle: "Sleep Quiz",
+    quizTitle: "Sleep Health Self-Assessment",
     questionTexts: [
-      "How many hours of sleep do you get on an average night?",
-      "How often do you consume caffeine (coffee, tea, soda)?",
-      "How often do you use electronic devices (phone, tablet) within an hour of bedtime?",
-      "How consistent are your sleep and wake-up times on weekdays and weekends?",
-      "How much do you feel stress affects your sleep?",
-      "How many days a week do you get at least 30 minutes of moderate exercise?",
-      "Which best describes your sleep environment?",
+      "How long does it usually take you to fall asleep after going to bed?",
+      "How often do you wake up during the night?",
+      "Do you wake up earlier than desired and cannot fall back asleep?",
+      "How do you feel when you wake up in the morning?",
+      "Have you been told or do you experience any abnormal behaviors during sleep? (e.g., snoring, breathing pauses, teeth grinding, sleep talking)",
+      "How often do you feel sleepy or doze off during the daytime?",
+      "How is your mood during the day?",
+      "How is your concentration and memory during the day?",
+      "What is your energy level for daily activities?",
+      "How consistent is your sleep schedule on weekdays and weekends?",
+      "What are your habits within 1 hour before bedtime?",
+      "How are your diet and exercise habits related to sleep?"
     ],
     options: [
-      ["Less than 6 hours", "6-7 hours", "7-9 hours", "More than 9 hours"],
-      ["Several times a day", "Once or twice a day", "Rarely or never"],
-      ["Every night", "A few nights a week", "Rarely or never"],
-      ["Not consistent at all", "Somewhat consistent", "Very consistent"],
-      ["It prevents me from sleeping most nights", "It sometimes makes it hard to sleep", "It rarely or never affects my sleep"],
-      ["0-1 days", "2-3 days", "4 or more days"],
-      ["It's noisy or has a lot of light", "It's okay, but could be better", "It's dark, quiet, and cool"],
+      ["Less than 30 minutes", "Sometimes more than 30 minutes", "Often more than 30 minutes", "Almost always more than 60 minutes"],
+      ["0-1 times, and fall back asleep quickly", "Wake up 1-2 times and need some time to fall back asleep", "Wake up 3 or more times, or stay awake for a long time", "Frequently wake up, sleep is fragmented"],
+      ["Never or rarely", "Sometimes (1-2 times a week)", "Often (3-5 times a week)", "Almost every day"],
+      ["Feel refreshed and energetic", "Feel okay, but could be better", "Feel somewhat tired", "Feel very tired, like didn't sleep at all"],
+      ["Never", "Mild teeth grinding or sleep talking", "Loud snoring", "Breathing pauses or gasping"],
+      ["Never", "Occasionally", "Often", "Almost every day"],
+      ["Generally good, rarely irritable or anxious", "Occasionally irritable or anxious, but not affecting life", "Often irritable or anxious, somewhat affecting life", "Almost daily irritable or anxious, severely affecting life"],
+      ["Good, no issues", "Occasionally have difficulty, but not affecting work", "Often have difficulty, somewhat affecting work", "Almost daily have difficulty, severely affecting work"],
+      ["Sufficient energy", "Generally enough energy", "Often lack energy", "Very fatigued, barely complete daily activities"],
+      ["Very consistent, difference less than 1 hour", "Slightly consistent, difference 1-2 hours", "Fairly consistent, difference more than 2 hours", "Not consistent at all, no fixed time"],
+      ["Relaxing activities like reading or listening to music", "Sometimes use electronic devices or think about work", "Often use electronic devices or think about stressful things", "Almost always use electronic devices or have heavy thoughts"],
+      ["Avoid caffeine and heavy meals before bed, and exercise regularly", "Occasionally have caffeine or heavy meals, or lack exercise", "Often have caffeine or heavy meals, or lack exercise", "Almost always have caffeine or heavy meals before bed, and sedentary"]
     ],
+    chartSubjects: {
+      sleepOnsetLatency: "Falling Asleep",
+      sleepMaintenance: "Staying Asleep",
+      earlyAwakening: "Waking Up Early",
+      sleepQuality: "Waking Quality",
+      abnormalBehavior: "Abnormal Behavior",
+      daytimeSleepiness: "Daytime Sleepiness",
+      moodState: "Daytime Mood",
+      cognitiveFunction: "Cognitive Function",
+      energyLevel: "Energy Level",
+      sleepConsistency: "Schedule Consistency",
+      bedtimeHabits: "Bedtime Habits",
+      dietExercise: "Diet & Exercise",
+    },
+
     diagnosisTitles: {
-      healthy: "Healthy Sleeper",
-      improvement: "Sleep Improvement Needed",
-      struggling: "Struggling Sleeper",
+      healthy: "Excellent Sleep Health",
+      improvement: "Mild Sleep Issues",
+      struggling: "Moderate Sleep Issues",
+      severe: "Severe Sleep Issues"
     },
     diagnosisMessages: {
-      healthy: "Congratulations! Your sleep habits are excellent. Maintaining this routine is key to long-term health and well-being.",
-      improvement: "You're on the right track, but there's room to grow. Small, consistent changes can make a big difference in your sleep quality.",
-      struggling: "It looks like you're facing some challenges with your sleep. Don't worry, many people do. Adopting better habits can significantly improve your rest.",
+      healthy: "Excellent! Your score (0-25) indicates no significant issues. Maintain these healthy practices for long-term well-being.",
+      improvement: "Your score (26-50) suggests some mild sleep difficulties, often related to habits or temporary stress. This is a great opportunity to refine your routine with consistent, small changes to prevent problems from worsening.",
+      struggling: "Your score (51-75) indicates that sleep problems are moderately affecting your quality of life. This is a key moment to take proactive steps to improve your sleep hygiene and consider tracking your habits more closely.",
+      severe: "Your score (76-100) shows that sleep issues are significantly impacting your physical and mental health. We strongly recommend seeking guidance from a healthcare professional, such as a sleep specialist or your doctor, to address these concerns."
     },
     tips: {
       healthy: [
-        "Keep up the great work! Consistency is your best friend.",
-        "Consider small enhancements, like a new pillow or an even earlier bedtime.",
-        "Share your tips with others to help them improve their sleep.",
+        "Maintain Consistency: Stick to your current sleep schedule, even on weekends. This is the cornerstone of good sleep health.",
+        "Optimize Your Environment: Ensure your bedroom remains dark, quiet, and cool. Consider advanced tools like a sleep tracker to monitor your excellent patterns.",
+        "Preventative Habits: Continue avoiding caffeine/alcohol before bed and manage stress effectively to sustain your high-quality sleep."
       ],
       improvement: [
-        "Start by adjusting your bedtime by 15-30 minutes earlier.",
-        "Reduce screen time before bed by reading a book or listening to music.",
-        "Limit caffeine intake, especially in the afternoon and evening.",
-        "Establish a consistent sleep schedule, even on weekends.",
+        "Stimulus Control: If you can't sleep, get out of bed and do something relaxing until you feel sleepy. Strengthen the mental link between bed and sleep.",
+        "Sleep Restriction: Try to go to bed only when you are truly sleepy and avoid spending excessive time in bed awake.",
+        "Wind-Down Routine: Develop a consistent 30-minute pre-sleep ritual (e.g., reading, light stretching) without screens.",
+        "Review Habits: Limit caffeine after noon and avoid heavy meals/alcohol close to bedtime."
       ],
       struggling: [
-        "Create a relaxing bedtime ritual to signal to your body that it's time to sleep.",
-        "Evaluate your sleep environment to ensure it's dark, quiet, and at a comfortable temperature.",
-        "Avoid caffeine and large meals close to bedtime.",
-        "Try light exercise during the day to help improve sleep quality at night.",
+        "Prioritize Sleep Diary: Keep a detailed record for 2 weeks to identify specific patterns and triggers. This is crucial data if you see a doctor.",
+        "Formal Sleep Hygiene: Strictly enforce a fixed wake-up time, a screen-free bedroom, and a cool, dark sleep environment.",
+        "Cognitive Reframing: Write down worries earlier in the evening to avoid overthinking in bed. Challenge the anxiety of 'I must fall asleep'.",
+        "Consult a Professional: Consider seeking help from a therapist trained in CBT-I (Cognitive Behavioral Therapy for Insomnia), the gold standard treatment."
       ],
+      severe: [
+        "Immediate Action: Prioritize consulting a healthcare professional. This is the most important step. Your sleep diary will be invaluable for diagnosis.",
+        "Medical Evaluation: A doctor can rule out or treat underlying conditions like Sleep Apnea, Restless Legs Syndrome, or other medical issues.",
+        "Follow Professional Advice: Treatment may involve CBT-I, medication (short-term), or other therapies tailored to your specific diagnosis.",
+        "Focus on Safety: If you experience extreme daytime sleepiness, avoid driving or operating dangerous machinery until you get help."
+      ]
     },
-    productSectionTitle: "Recommended Sleep Solutions",
-    productBadges: "Tested & Reviewed by The Sleep Experts",
     products: {
       healthy: [
-        { name: "Luxury Silk Pillowcase", description: "Reduces friction for healthier hair and skin, ensuring a comfortable night." },
-        { name: "Premium Weighted Blanket", description: "Provides gentle pressure to promote relaxation and deeper sleep cycles." },
-        { name: "Smart Alarm Clock", description: "Wakes you up with gentle light and sounds, easing you into your day." },
+        { name: "Sleep Tracking Device", description: "Monitor your healthy sleep patterns and get data-driven insights to maintain your excellent sleep quality." },
+        { name: "Temperature Regulating Mattress Pad", description: "Maintains an ideal sleeping temperature throughout the night for optimal comfort." },
+        { name: "Advanced Light Therapy Lamp", description: "Helps reinforce your natural circadian rhythm, especially useful in winter months." }
       ],
       improvement: [
-        { name: "Blackout Curtains", description: "Blocks all external light for a pitch-black, distraction-free sleeping environment." },
-        { name: "White Noise Machine", description: "Masks disruptive noises to help you fall asleep and stay asleep." },
-        { name: "Aromatherapy Diffuser", description: "Uses calming essential oils like lavender to create a soothing atmosphere." },
+        { name: "Sleep Diary Notebook", description: "A structured journal to help you track sleep habits, mood, and identify patterns for improvement." },
+        { name: "Blue Light Blocking Glasses", description: "Worn in the evening to mitigate the sleep-disrupting effects of screens and indoor lighting." },
+        { name: "Relaxation App Subscription", description: "Guided meditations, sleep stories, and soundscapes to facilitate your new wind-down routine." }
       ],
       struggling: [
-        { name: "Herbal Sleep Tea", description: "A calming blend of herbs like chamomile and valerian root to help you relax before bed." },
-        { name: "Sleep Mask", description: "Completely blocks light to improve sleep quality, especially when traveling or sleeping in a lit room." },
+        { name: "CBT-I App or Online Program", description: "Provides structured guidance based on the gold-standard therapeutic method for chronic insomnia." },
+        { name: "Weighted Blanket", description: "Provides deep pressure stimulation (DPS) to help reduce nighttime anxiety and improve sleep maintenance." },
+        { name: "White Noise Machine", description: "Effectively masks disruptive environmental noises that can fragment sleep and cause awakenings." }
       ],
+      severe: [
+        { name: "Medical Consultation", description: "The most recommended 'product'. Use our sleep diary tool to prepare for your appointment with a sleep specialist." },
+        { name: "At-Home Sleep Test Kit (if recommended)", description: "Some doctors may prescribe these to screen for sleep apnea from the comfort of your home." }
+      ]
     },
+
+    // ... disclaimer, buttonText 等保持不变 ...
+
     disclaimer: "This quiz is a guided self-evaluation to help you reflect on your sleep habits and identify areas for improvement. It is informational only and not a medical diagnosis or treatment tool.",
     buttonText: {
       learnMore: "Learn More",
       retakeQuiz: "Retake Quiz",
       back: "Back",
     },
-    chartText: "This chart shows your score (inner shape) relative to the maximum possible score (outer shape) for each factor.",
-    scoreSummary: "Your Sleep Score",
+    chartText: "The inner shape is your sleep issue score. The chart shows how each factor affects your sleep.",
+    scoreSummary: "Your Sleeping Issue Score",
     progress: "Question",
     of: "of",
   },
   zh: {
-    quizTitle: "睡眠习惯测验",
+    quizTitle: "睡眠健康自评测验",
     questionTexts: [
-      "你平均每晚睡几个小时？",
-      "你多久喝一次含咖啡因的饮料（咖啡、茶、汽水）？",
-      "你在睡前一小时内多久使用一次电子设备？",
-      "你工作日和周末的作息时间有多规律？",
-      "你觉得压力对你的睡眠影响有多大？",
-      "你每周有多少天进行至少30分钟的中等强度运动？",
-      "哪一个最能描述你的睡眠环境？",
+      "躺下后，您通常需要多长时间才能入睡？",
+      "您夜间醒来的频率如何？",
+      "您是否会比期望的时间早醒并且无法再次入睡？",
+      "早上醒来时您感觉如何？",
+      "您是否被告知或在睡眠中经历任何异常行为？（例如：打鼾、呼吸暂停、磨牙、说梦话）",
+      "白天您感到困倦或打瞌睡的频率如何？",
+      "您白天的情绪状态如何？",
+      "您白天的注意力和记忆力如何？",
+      "您进行日常活动的精力水平如何？",
+      "您工作日和周末的睡眠时间表有多一致？",
+      "睡前一小时内您的习惯是什么？",
+      "您的饮食和运动习惯与睡眠的关系如何？"
     ],
     options: [
-      ["少于6小时", "6-7小时", "7-9小时", "超过9小时"],
-      ["每天数次", "每天一到两次", "很少或从不"],
-      ["每晚都用", "每周数晚", "很少或从不"],
-      ["完全不规律", "有点规律", "非常规律"],
-      ["大部分夜晚会影响我入睡", "有时会影响我入睡", "很少或从不影响我的睡眠"],
-      ["0-1天", "2-3天", "4天或更多"],
-      ["嘈杂或光线很亮", "还可以，但可以更好", "黑暗、安静、凉爽"],
+      ["少于30分钟", "有时超过30分钟", "经常超过30分钟", "几乎总是超过60分钟"],
+      ["0-1次，并且很快再次入睡", "醒来1-2次，需要一些时间才能再次入睡", "醒来3次或更多，或长时间清醒", "频繁醒来，睡眠支离破碎"],
+      ["从未或很少", "有时（每周1-2次）", "经常（每周3-5次）", "几乎每天"],
+      ["感觉精神焕发、精力充沛", "感觉还可以，但可以更好", "感觉有点疲惫", "感觉非常疲惫，像没睡一样"],
+      ["从未", "轻微磨牙或说梦话", "大声打鼾", "呼吸暂停或喘气"],
+      ["从未", "偶尔", "经常", "几乎每天"],
+      ["总体良好，很少烦躁或焦虑", "偶尔烦躁或焦虑，但不影响生活", "经常烦躁或焦虑，有些影响生活", "几乎每天烦躁或焦虑，严重影响生活"],
+      ["良好，没有问题", "偶尔有困难，但不影响工作", "经常有困难，有些影响工作", "几乎每天有困难，严重影响工作"],
+      ["精力充足", "精力一般", "经常缺乏精力", "非常疲劳，勉强完成日常活动"],
+      ["非常一致，差异小于1小时", "稍微一致，差异1-2小时", "相当一致，差异超过2小时", "完全不一致，没有固定时间"],
+      ["阅读或听音乐等放松活动", "有时使用电子设备或思考工作", "经常使用电子设备或思考压力事情", "几乎总是使用电子设备或思考沉重事情"],
+      ["睡前避免咖啡因和大餐，并定期运动", "偶尔摄入咖啡因或大餐，或缺乏运动", "经常摄入咖啡因或大餐，或缺乏运动", "几乎总是在睡前摄入咖啡因或大餐，且久坐"]
     ],
+    chartSubjects: {
+      sleepOnsetLatency: "入睡时间",
+      sleepMaintenance: "睡眠维持",
+      earlyAwakening: "早醒",
+      sleepQuality: "醒后质量",
+      abnormalBehavior: "异常行为",
+      daytimeSleepiness: "日间嗜睡",
+      moodState: "日间情绪",
+      cognitiveFunction: "认知功能",
+      energyLevel: "精力水平",
+      sleepConsistency: "作息规律",
+      bedtimeHabits: "睡前习惯",
+      dietExercise: "饮食运动",
+    },
+
     diagnosisTitles: {
-      healthy: "健康睡眠者",
-      improvement: "睡眠需改善",
-      struggling: "睡眠困难者",
+      healthy: "睡眠健康",
+      improvement: "轻度睡眠问题",
+      struggling: "中度睡眠问题",
+      severe: "重度睡眠问题"
     },
     diagnosisMessages: {
-      healthy: "恭喜！你的睡眠习惯非常好。保持这个规律是长期健康和幸福的关键。",
-      improvement: "你正走在正确的轨道上，但仍有进步空间。微小而持续的改变可以显著提升你的睡眠质量。",
-      struggling: "看来你的睡眠正面临一些挑战。别担心，很多人都有这个问题。养成更好的习惯可以显著改善你的休息。",
+      healthy: "恭喜！您的分数（0-25分）表明没有显著的睡眠问题。请保持这些健康习惯以获得长期的健康。",
+      improvement: "您的分数（26-50分）表明存在一些轻度睡眠困难，通常与习惯或短期压力有关。这是一个通过持续、微小的改变来优化作息、防止问题恶化的好机会。",
+      struggling: "您的分数（51-75分）表明睡眠问题正在中度影响您的生活质量。现在是采取积极措施改善睡眠卫生、并更仔细追踪习惯的关键时刻。",
+      severe: "您的分数（76-100分）表明睡眠问题正严重影响着您的身心健康。我们强烈建议寻求医疗专业人士（如睡眠专科医生或您的医生）的指导来解决这些问题。"
     },
     tips: {
       healthy: [
-        "继续保持！规律性是你最好的朋友。",
-        "考虑一些小的改进，比如换一个新枕头或更早一些睡觉。",
-        "与他人分享你的秘诀，帮助他们改善睡眠。",
+        "保持规律：坚持您目前的睡眠时间表，即使在周末也是如此。这是良好睡眠健康的基石。",
+        "优化环境：确保您的卧室保持黑暗、安静和凉爽。可以考虑使用睡眠追踪器等高级工具来监测您的良好模式。",
+        "预防性习惯：继续避免睡前摄入咖啡因/酒精，并有效管理压力，以维持您的高质量睡眠。"
       ],
       improvement: [
-        "从将就寝时间提前15-30分钟开始。",
-        "通过阅读或听音乐来减少睡前使用电子设备的时间。",
-        "限制咖啡因摄入，尤其是在下午和晚上。",
-        "建立一个稳定的睡眠时间表，即使在周末也是如此。",
+        "刺激控制：如果睡不着，就起床做些放松的事情，直到感到困倦再回到床上。强化‘床只用于睡眠’的心理联系。",
+        "睡眠限制：只在真正困倦时才上床，避免醒着时在床上待过长时间。",
+        "放松仪式：培养一个固定的30分钟睡前仪式（如阅读、轻度拉伸），且不使用电子屏幕。",
+        "检查习惯：中午后限制咖啡因摄入，睡前避免大餐和酒精。"
       ],
       struggling: [
-        "创建放松的睡前仪式来告诉你的身体是时候睡觉了。",
-        "评估你的睡眠环境，确保它黑暗、安静且温度适宜。",
-        "避免在睡前摄入咖啡因和大量进食。",
-        "尝试在白天进行轻度运动以帮助改善夜间睡眠质量。",
+        "优先记录睡眠日记：详细记录2周，以识别具体模式和诱因。如果您去看医生，这些数据至关重要。",
+        "严格执行睡眠卫生：固定起床时间，保持卧室无屏幕，确保睡眠环境凉爽、黑暗。",
+        "认知重构：在傍晚早些时候写下担忧，避免在床上过度思考。摆脱‘我必须睡着’的焦虑。",
+        "咨询专业人士：考虑寻求接受过CBT-I（失眠的认知行为疗法，黄金标准疗法）治疗师的专业帮助。"
       ],
+      severe: [
+        "立即行动：优先咨询医疗保健专业人士。这是最重要的一步。您的睡眠日记将对诊断具有无可估量的价值。",
+        "医学评估：医生可以排除或治疗潜在疾病，如睡眠呼吸暂停、不宁腿综合征或其他医疗问题。",
+        "遵循专业建议：治疗可能包括CBT-I、药物（短期）、或其他针对您具体诊断的疗法。",
+        "注意安全：如果您白天极度困倦，在获得帮助前请避免驾驶或操作危险机械。"
+      ]
     },
-    productSectionTitle: "推荐睡眠解决方案",
-    productBadges: "经睡眠专家测试与评价",
     products: {
       healthy: [
-        { name: "奢华真丝枕套", description: "减少摩擦，呵护秀发和皮肤，确保舒适的夜晚。" },
-        { name: "高级加重毯", description: "提供轻柔压力，促进放松和更深层次的睡眠周期。" },
-        { name: "智能闹钟", description: "用温和的光线和声音叫醒你，让你轻松开启新的一天。" },
+        { name: "睡眠追踪设备", description: "监测您健康的睡眠模式，获取数据驱动的见解，以保持优异的睡眠质量。" },
+        { name: "温控床垫垫", description: "整夜维持理想的睡眠温度，实现最佳舒适度。" },
+        { name: "高级光疗灯", description: "有助于强化您的自然昼夜节律，在冬季尤其有用。" }
       ],
       improvement: [
-        { name: "遮光窗帘", description: "阻挡所有外部光线，营造一个漆黑、无干扰的睡眠环境。" },
-        { name: "白噪音机", description: "掩盖扰人的噪音，帮助你入睡并保持睡眠。" },
-        { name: "香薰加湿器", description: "使用薰衣草等镇静精油，营造舒缓的氛围。" },
+        { name: "睡眠日记本", description: "一个结构化的日志本，帮助您追踪睡眠习惯、情绪，并识别需要改进的模式。" },
+        { name: "防蓝光眼镜", description: "晚上佩戴，以减少屏幕和室内灯光对睡眠的干扰影响。" },
+        { name: "放松应用订阅", description: "提供引导冥想、睡眠故事和白噪音，助您建立新的睡前放松程序。" }
       ],
       struggling: [
-        { name: "草本助眠茶", description: "洋甘菊和缬草根等草药的舒缓混合物，可帮助您在睡前放松。" },
-        { name: "睡眠眼罩", description: "完全遮挡光线以提高睡眠质量，特别是在旅行或在明亮的房间睡觉时。" },
+        { name: "CBT-I 应用或在线课程", description: "基于治疗慢性失眠的黄金标准方法提供结构化指导。" },
+        { name: "加重毯", description: "提供深度压力刺激（DPS），有助于减轻夜间焦虑，改善睡眠维持。" },
+        { name: "白噪音机器", description: "有效屏蔽环境中会打断睡眠、导致醒来的破坏性噪音。" }
       ],
+      severe: [
+        { name: "医生问诊", description: "最推荐的‘产品’。使用我们的睡眠日记工具为您预约睡眠专家做准备。" },
+        { name: "家用睡眠测试套件（若医生推荐）", description: "一些医生可能会开具此类套件，让您在家舒适地筛查睡眠呼吸暂停。" }
+      ]
     },
+
+    // ... disclaimer, buttonText 等保持不变 ...
+
+
     disclaimer: "本测验是一项指导性自我评估，旨在帮助您反思自己的睡眠习惯并确定需要改进的领域。它仅供参考，并非医疗诊断或治疗工具。",
     buttonText: {
       learnMore: "了解更多",
       retakeQuiz: "重做测验",
       back: "返回",
     },
-    chartText: "此图表显示了您在每个方面的得分（内圈）相对于可能最高得分（外圈）的情况。",
-    scoreSummary: "你的睡眠分数",
+    chartText: "内层图形表示你的睡眠问题分数。图表显示了每个因素如何影响你的睡眠。",
+    scoreSummary: "你的睡眠障碍分数",
     progress: "问题",
     of: "之",
   },
   ms: {
-    quizTitle: "Kuiz Tabiat Tidur",
+    quizTitle: "Penilaian Kendiri Kesihatan Tidur",
     questionTexts: [
-      "Berapa jam tidur anda setiap malam secara purata?",
-      "Berapa kerap anda mengambil kafein (kopi, teh, soda)?",
-      "Berapa kerap anda menggunakan peranti elektronik (telefon, tablet) dalam masa sejam sebelum tidur?",
-      "Sejauh mana konsistennya waktu tidur dan bangun anda pada hari bekerja dan hujung minggu?",
-      "Sejauh mana anda rasa tekanan mempengaruhi tidur anda?",
-      "Berapa hari seminggu anda bersenam sederhana sekurang-kurangnya 30 minit?",
-      "Manakah yang paling menggambarkan persekitaran tidur anda?",
+      "Berapa lama biasanya anda mengambil masa untuk tidur setelah naik ke katil?",
+      "Berapa kerap anda terjaga pada waktu malam?",
+      "Adakah anda terjaga lebih awal daripada yang diinginkan dan tidak dapat tidur semula?",
+      "Bagaimana perasaan anda apabila bangun pada waktu pagi?",
+      "Pernahkah anda diberitahu atau mengalami sebarang tingkah laku tidak normal semasa tidur? (e.g., berdengkur, jeda pernafasan, mengisar gigi, bercakap semasa tidur)",
+      "Berapa kerap anda mengantuk atau tertidur pada waktu siang?",
+      "Bagaimana mood anda pada waktu siang?",
+      "Bagaimana tumpuan dan ingatan anda pada waktu siang?",
+      "Apakah tahap tenaga anda untuk aktiviti harian?",
+      "Berapa konsisten jadual tidur anda pada hari bekerja dan hujung minggu?",
+      "Apakah tabiat anda dalam masa 1 jam sebelum tidur?",
+      "Bagaimana tabiat pemakanan dan senaman anda berkaitan dengan tidur?"
     ],
     options: [
-      ["Kurang daripada 6 jam", "6-7 jam", "7-9 jam", "Lebih daripada 9 jam"],
-      ["Beberapa kali sehari", "Sekali atau dua kali sehari", "Jarang atau tidak pernah"],
-      ["Setiap malam", "Beberapa malam seminggu", "Jarang atau tidak pernah"],
-      ["Tidak konsisten sama sekali", "Agak konsisten", "Sangat konsisten"],
-      ["Ia menghalang saya daripada tidur hampir setiap malam", "Ia kadangkala menyukarkan saya untuk tidur", "Ia jarang atau tidak pernah mempengaruhi tidur saya"],
-      ["0-1 hari", "2-3 hari", "4 hari atau lebih"],
-      ["Bising atau mempunyai banyak cahaya", "Okay, tetapi boleh lebih baik", "Gelap, senyap, dan sejuk"],
+      ["Kurang daripada 30 minit", "Kadang-kadang lebih daripada 30 minit", "Sering lebih daripada 30 minit", "Hampir selalu lebih daripada 60 minit"],
+      ["0-1 kali, dan tidur semula dengan cepat", "Terjaga 1-2 kali dan perlukan masa untuk tidur semula", "Terjaga 3 kali atau lebih, atau berjaga untuk masa yang lama", "Kerap terjaga, tidur tidak lena"],
+      ["Tidak pernah atau jarang", "Kadang-kadang (1-2 kali seminggu)", "Sering (3-5 kali seminggu)", "Hampir setiap hari"],
+      ["Berasa segar dan bertenaga", "Berasa okay, tetapi boleh lebih baik", "Berasa agak letih", "Berasa sangat letih, seperti tidak tidur langsung"],
+      ["Tidak pernah", "Mengisar gigi ringan atau bercakap semasa tidur", "Berdengkur kuat", "Jeda pernafasan atau tercungap-cungap"],
+      ["Tidak pernah", "Kadang-kadang", "Sering", "Hampir setiap hari"],
+      ["Secara amnya baik, jarang mudah marah atau cemas", "Kadang-kadang mudah marah atau cemas, tetapi tidak menjejaskan hidup", "Sering mudah marah atau cemas, agak menjejaskan hidup", "Hampir setiap hari mudah marah atau cemas, sangat menjejaskan hidup"],
+      ["Baik, tiada masalah", "Kadang-kadang ada kesukaran, tetapi tidak menjejaskan kerja", "Sering ada kesukaran, agak menjejaskan kerja", "Hampir setiap hari ada kesukaran, sangat menjejaskan kerja"],
+      ["Tenaga mencukupi", "Secara amnya tenaga cukup", "Sering kekurangan tenaga", "Sangat letih, hampir tidak dapat menamatkan aktiviti harian"],
+      ["Sangat konsisten, perbezaan kurang daripada 1 jam", "Agak konsisten, perbezaan 1-2 jam", "Cukup konsisten, perbezaan lebih daripada 2 jam", "Tidak konsisten langsung, tiada masa tetap"],
+      ["Aktiviti santai seperti membaca atau mendengar muzik", "Kadang-kadang menggunakan peranti elektronik atau memikirkan kerja", "Sering menggunakan peranti elektronik atau memikirkan perkara tertekan", "Hampir selalu menggunakan peranti elektronik atau mempunyai pemikiran berat"],
+      ["Elakkan kafein dan makanan berat sebelum tidur, dan bersenam secara berkala", "Kadang-kadang mengambil kafein atau makanan berat, atau kurang bersenam", "Sering mengambil kafein atau makanan berat, atau kurang bersenam", "Hampir selalu mengambil kafein atau makanan berat sebelum tidur, dan tidak aktif"]
     ],
+    chartSubjects: {
+      sleepOnsetLatency: "Masa Tidur",
+      sleepMaintenance: "Mengekalkan Tidur",
+      earlyAwakening: "Terjaga Awal",
+      sleepQuality: "Kualiti Bangun",
+      abnormalBehavior: "Tingkah Laku Abnormal",
+      daytimeSleepiness: "Mengantuk Siang",
+      moodState: "Mood Siang",
+      cognitiveFunction: "Fungsi Kognitif",
+      energyLevel: "Tahap Tenaga",
+      sleepConsistency: "Jadual Konsisten",
+      bedtimeHabits: "Tabiat Tidur",
+      dietExercise: "Diet & Senaman",
+    },
+
     diagnosisTitles: {
-      healthy: "Tidur yang Sihat",
-      improvement: "Tidur Perlu Penambahbaikan",
-      struggling: "Tidur Bermasalah",
+      healthy: "Tidur Sihat Cemerlang",
+      improvement: "Masalah Tidur Ringan",
+      struggling: "Masalah Tidur Sederhana",
+      severe: "Masalah Tidur Teruk"
     },
     diagnosisMessages: {
-      healthy: "Tahniah! Tabiat tidur anda sangat baik. Mengekalkan rutin ini adalah kunci kepada kesihatan dan kesejahteraan jangka panjang.",
-      improvement: "Anda berada di landasan yang betul, tetapi ada ruang untuk penambahbaikan. Perubahan kecil yang konsisten boleh membuat perbezaan besar dalam kualiti tidur anda.",
-      struggling: "Nampaknya anda menghadapi beberapa cabaran dengan tidur anda. Jangan risau, ramai orang mengalaminya. Mengamalkan tabiat yang lebih baik boleh meningkatkan rehat anda dengan ketara.",
+      healthy: "Cemerlang! Skor anda (0-25) menunjukkan tiada isu tidur yang signifikan. Kekalkan amalan sihat ini untuk kesejahteraan jangka panjang.",
+      improvement: "Skor anda (26-50) mencadangkan beberapa kesukaran tidur ringan, selalunya berkaitan dengan tabiat atau tekanan sementara. Ini adalah peluang terbaik untuk memperhalusi rutin anda dengan perubahan kecil yang konsisten untuk mengelakkan masalah menjadi lebih teruk.",
+      struggling: "Skor anda (51-75) menunjukkan bahawa masalah tidur sedang memberi kesan sederhana kepada kualiti hidup anda. Ini adalah detik penting untuk mengambil langkah proaktif untuk meningkatkan kebersihan tidur dan mempertimbangkan untuk menjejaki tabiat dengan lebih teliti.",
+      severe: "Skor anda (76-100) menunjukkan bahawa isu tidur memberi kesan signifikan kepada kesihatan fizikal dan mental anda. Kami amat mengesyorkan untuk mendapatkan pandangan profesional penjagaan kesihatan, seperti pakar tidur atau doktor anda, untuk menangani kebimbangan ini."
     },
+    // 在马来语 (ms) 版本的 tips 部分，替换为以下内容：
     tips: {
       healthy: [
-        "Teruskan usaha yang cemerlang! Konsistensi adalah kawan baik anda.",
-        "Pertimbangkan penambahbaikan kecil, seperti bantal baru atau waktu tidur yang lebih awal.",
-        "Kongsi tip anda dengan orang lain untuk membantu mereka meningkatkan tidur mereka.",
+        "Kekalkan Konsistensi: Berpegang pada jadual tidur anda sekarang, walaupun pada hujung minggu. Ini adalah asas kepada kesihatan tidur yang baik.",
+        "Optimumkan Persekitaran: Pastikan bilik tidur anda kekal gelap, senyap dan sejuk. Pertimbangkan alat seperti penjejak tidur untuk memantau corak tidur cemerlang anda.",
+        "Amalan Pencegahan: Terus elakkan kafein/alkohol sebelum tidur dan urus tekanan dengan berkesan untuk mengekalkan tidur berkualiti tinggi."
       ],
       improvement: [
-        "Mulakan dengan melaraskan waktu tidur anda 15-30 minit lebih awal.",
-        "Kurangkan masa skrin sebelum tidur dengan membaca buku atau mendengar muzik.",
-        "Hadkan pengambilan kafein, terutamanya pada waktu petang dan malam.",
-        "Tetapkan jadual tidur yang konsisten, walaupun pada hujung minggu.",
-      ],
-    },
-    productSectionTitle: "Penyelesaian Tidur yang Disyorkan",
-    productBadges: "Diuji & Disemak oleh Pakar Tidur",
-    products: {
-      healthy: [
-        { name: "Sarung Bantal Sutera Mewah", description: "Mengurangkan geseran untuk rambut dan kulit yang lebih sihat, memastikan malam yang selesa." },
-        { name: "Selimut Pemberat Premium", description: "Menyediakan tekanan lembut untuk menggalakkan kelonggaran dan kitaran tidur yang lebih dalam." },
-        { name: "Jam Penggera Pintar", description: "Mengejutkan anda dengan cahaya dan bunyi yang lembut, memudahkan anda memulakan hari anda." },
-      ],
-      improvement: [
-        { name: "Langsir 'Blackout'", description: "Menyekat semua cahaya luaran untuk persekitaran tidur yang gelap gelita dan bebas gangguan." },
-        { name: "Mesin 'White Noise'", description: "Menutupi bunyi bising yang mengganggu untuk membantu anda tidur dan kekal tidur." },
-        { name: "Penyebar Aroma Terapi", description: "Menggunakan minyak pati yang menenangkan seperti lavender untuk mencipta suasana yang tenteram." },
+        "Kawalan Rangsangan: Jika anda tidak boleh tidur, bangun dari katil dan lakukan sesuatu yang menenangkan sehingga anda mengantuk. Perkukuh hubungan mental antara katil dan tidur.",
+        "Sekatan Tidur: Cuba tidur hanya apabila anda benar-benar mengantuk dan elakkan menghabiskan terlalu banyak masa di atas katil dalam keadaan jaga.",
+        "Rutin Tenang: Bangunkan ritual 30 minit sebelum tidur yang konsisten (seperti membaca, regangan ringan) tanpa skrin.",
+        "Semak Semula Tabiat: Hadkan kafein selepas tengah hari dan elakkan makanan berat/alkohol menjelang waktu tidur."
       ],
       struggling: [
-        { name: "Teh Herba Tidur", description: "Campuran herba yang menenangkan seperti chamomile dan valerian root untuk membantu anda berehat sebelum tidur." },
-        { name: "Topeng Tidur", description: "Menyekat cahaya sepenuhnya untuk meningkatkan kualiti tidur, terutamanya ketika melancong atau tidur di bilik yang bercahaya." },
+        "Prioritikan Diary Tidur: Simpan rekod terperinci selama 2 minggu untuk mengenal pasti corak dan pencetus tertentu. Data ini amat penting jika anda berjumpa doktor.",
+        "Kebersihan Tidur Formal: Teguh menguatkuasakan waktu bangun yang tetap, bilik tidur bebas skrin, dan persekitaran tidur yang sejuk dan gelap.",
+        "Pembingkaian Semula Kognitif: Tuliskan kebimbangan awal pada waktu petang untuk mengelakkan terlebih memikirkan di atas katil. Cabar kebimbangan 'Saya mesti tidur'.",
+        "Rujuk Profesional: Pertimbangkan untuk mendapatkan bantuan daripada ahli terapi yang terlatih dalam CBT-I (Terapi Tingkah Laku Kognitif untuk Insomnia), rawatan standard emas."
       ],
+      severe: [
+        "Tindakan Segera: Prioritikan untuk berunding dengan profesional penjagaan kesihatan. Ini adalah langkah paling penting. Diary tidur anda akan sangat berharga untuk diagnosis.",
+        "Penilaian Perubatan: Doktor boleh menolak atau merawat keadaan asas seperti Sleep Apnea, Sindrom Kaki Gelisah, atau isu perubatan lain.",
+        "Ikut Nasihat Profesional: Rawatan mungkin melibatkan CBT-I, ubat-ubatan (jangka pendek), atau terapi lain yang disesuaikan dengan diagnosis khusus anda.",
+        "Fokus pada Keselamatan: Jika anda mengalami mengantuk siang yang melampau, elakkan memandu atau mengendalikan jentera berbahaya sehingga anda mendapat bantuan."
+      ]
     },
+
+    // 在马来语 (ms) 版本的 products 部分，确保所有描述都是马来语：
+    products: {
+      healthy: [
+        { name: "Peranti Penjejak Tidur", description: "Pantau corak tidur sihat anda dan dapatkan pandangan berasaskan data untuk mengekalkan kualiti tidur cemerlang anda." },
+        { name: "Alas Tilam Pengawal Suhu", description: "Mengekalkan suhu tidur yang ideal sepanjang malam untuk keselesaan optimum." },
+        { name: "Lampu Terapi Cahaya Maju", description: "Membantu mengukuhkan irama sirkadian semula jadi anda, terutamanya berguna pada bulan-bulan musim sejuk." }
+      ],
+      improvement: [
+        { name: "Buku Diary Tidur", description: "Jurnal berstruktur untuk membantu anda menjejaki tabiat tidur, mood dan mengenal pasti corak untuk penambahbaikan." },
+        { name: "Cermin Mata Penghalang Cahaya Biru", description: "Digunakan pada waktu petang untuk mengurangkan kesan gangguan tidur dari skrin dan pencahayaan dalaman." },
+        { name: "Langganan Aplikasi Relaksasi", description: "Meditasi berpandu, cerita tidur dan soundskap untuk memudahkan rutin tenang baru anda." }
+      ],
+      struggling: [
+        { name: "Aplikasi atau Program Dalam Talian CBT-I", description: "Memberi panduan berstruktur berdasarkan kaedah terapeutik standard emas untuk insomnia kronik." },
+        { name: "Selimut Pemberat", description: "Memberi rangsangan tekanan dalam (DPS) untuk membantu mengurangkan kebimbangan malam dan meningkatkan pengekalan tidur." },
+        { name: "Mesin White Noise", description: "Berkesan menutupi bunyi persekitaran yang mengganggu yang boleh memecahkan tidur dan menyebabkan terjaga." }
+      ],
+      severe: [
+        { name: "Konsultasi Perubatan", description: "'Produk' yang paling disyorkan. Gunakan alat diary tidur kami untuk bersiap sedia untuk temu janji dengan pakar tidur." },
+        { name: "Kit Ujian Tidur Di-Rumah (jika disyorkan)", description: "Sesetengah doktor mungkin menetapkan ini untuk menyaring sleep apnea dari keselesaan rumah anda." }
+      ]
+    },
+    // ... disclaimer, buttonText 等保持不变 ...
+
     disclaimer: "Kuiz ini adalah penilaian kendiri berpandu untuk membantu anda merenung tabiat tidur anda dan mengenal pasti bidang untuk penambahbaikan. Ia hanya untuk maklumat dan bukan diagnosis perubatan atau alat rawatan.",
     buttonText: {
       learnMore: "Ketahui Lebih Lanjut",
       retakeQuiz: "Ambil Kuiz Semula",
       back: "Kembali",
     },
-    chartText: "Carta ini menunjukkan skor anda (bentuk dalaman) berbanding skor maksimum yang mungkin (bentuk luaran) bagi setiap faktor.",
-    scoreSummary: "Skor Tidur Anda",
+    chartText: "Bentuk dalaman menunjukkan skor masalah tidur anda. Carta ini menunjukkan bagaimana setiap faktor mempengaruhi tidur anda. ",
+    scoreSummary: "Skor Insomnia Anda",
     progress: "Soalan",
-    of: "dari",
+    of: "daripada",
   },
 };
 
 const questions = [
   {
-    category: "sleepHours",
+    category: "sleepOnsetLatency",
     options: [
       { value: 0 },
       { value: 1 },
       { value: 2 },
-      { value: 1 }
+      { value: 3 }
     ],
   },
   {
-    category: "caffeine",
+    category: "sleepMaintenance",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
   {
-    category: "screenTime",
+    category: "earlyAwakening",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
   {
-    category: "consistency",
+    category: "sleepQuality",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
   {
-    category: "stress",
+    category: "abnormalBehavior",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
   {
-    category: "exercise",
+    category: "daytimeSleepiness",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
   {
-    category: "environment",
+    category: "moodState",
     options: [
       { value: 0 },
       { value: 1 },
-      { value: 2 }
+      { value: 2 },
+      { value: 3 }
     ],
   },
+  {
+    category: "cognitiveFunction",
+    options: [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
+    ],
+  },
+  {
+    category: "energyLevel",
+    options: [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
+    ],
+  },
+  {
+    category: "sleepConsistency",
+    options: [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
+    ],
+  },
+  {
+    category: "bedtimeHabits",
+    options: [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
+    ],
+  },
+  {
+    category: "dietExercise",
+    options: [
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 }
+    ],
+  }
 ];
 
 const ProductCard = ({ product, t }) => (
@@ -337,13 +514,15 @@ const App = () => {
   }));
 
   const totalQuestions = quizQuestions.length;
-  const maxPossibleScore = totalQuestions * 2;
+  const maxPossibleScore = 100;
 
   // Recalculate the score whenever answers change
   useEffect(() => {
-    const newScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
+    const total = Object.values(answers).reduce((sum, val) => sum + val, 0) * 2.8;
+    const newScore = Math.min(Math.max(Math.round(total), 0), 100);
     setScore(newScore);
   }, [answers]);
+
 
   // Update progress bar
   useEffect(() => {
@@ -377,21 +556,31 @@ const App = () => {
   };
 
   const getDiagnosis = () => {
-    const percentage = (score / maxPossibleScore) * 100;
+    const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+    const maxPossibleScore = 36; // 12个问题，每个最高3分 = 36分
+
     let category = '';
 
-    if (percentage >= 80) {
+    if (totalScore <= 9) { // 0-9分: 健康 (0-25%)
       category = 'healthy';
-    } else if (percentage >= 50) {
+    } else if (totalScore <= 18) { // 10-18分: 轻度问题 (26-50%)
       category = 'improvement';
-    } else {
+    } else if (totalScore <= 27) { // 19-27分: 中度问题 (51-75%)
       category = 'struggling';
+    } else { // 28-36分: 重度问题 (76-100%)
+      category = 'severe';
     }
 
     return {
       title: t.diagnosisTitles[category],
       message: t.diagnosisMessages[category],
-      color: category === 'healthy' ? "bg-green-100 border-green-500" : category === 'improvement' ? "bg-yellow-100 border-yellow-500" : "bg-red-100 border-red-500",
+      color: category === 'healthy'
+        ? "bg-green-100 border-green-500"
+        : category === 'improvement'
+          ? "bg-yellow-100 border-yellow-500"
+          : category === 'struggling'
+            ? "bg-orange-100 border-orange-500"
+            : "bg-red-100 border-red-500",
       icon: category === 'healthy' ? (
         <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -399,6 +588,10 @@ const App = () => {
       ) : category === 'improvement' ? (
         <svg className="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      ) : category === 'struggling' ? (
+        <svg className="w-8 h-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ) : (
         <svg className="w-8 h-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -412,11 +605,11 @@ const App = () => {
 
   const diagnosis = quizCompleted ? getDiagnosis() : null;
 
-  // Prepare data for the radar chart
+  // 准备雷达图数据
   const radarData = quizQuestions.map(q => ({
-    subject: q.category,
+    subject: t.chartSubjects[q.category],
     A: answers[q.category] || 0,
-    fullMark: 2, // Max possible score for each category
+    fullMark: 3, // 每个类别的最高可能得分
   }));
 
   return (
